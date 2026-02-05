@@ -1,6 +1,3 @@
-// =======================
-// Elements
-// =======================
 const envelope = document.getElementById("envelope-container");
 const letter = document.getElementById("letter-container");
 const letterWindow = document.querySelector(".letter-window");
@@ -13,9 +10,7 @@ const cat = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
-// =======================
-// Typing animation
-// =======================
+// typing
 const message = "Will you be my Valentine?? (⸝⸝๑﹏๑⸝⸝)👉👈";
 let i = 0;
 
@@ -27,9 +22,7 @@ function typeText() {
   }
 }
 
-// =======================
-// Open envelope
-// =======================
+// open envelope
 envelope.onclick = () => {
   envelope.style.display = "none";
   letter.style.display = "flex";
@@ -42,40 +35,30 @@ envelope.onclick = () => {
   }, 100);
 };
 
-// =======================
-// NO button dodge
-// =======================
+// NO dodge
 noBtn.addEventListener("mouseenter", () => {
   const x = Math.random() * 200 - 100;
   const y = Math.random() * 120 - 60;
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
 });
 
-// =======================
-// YES click (THIS NOW WORKS)
-// =======================
-yesBtn.addEventListener("click", () => {
+// YES click (NOW GUARANTEED)
+yesBtn.onclick = () => {
   title.textContent = "YIPPPPEEEE!! 💖";
   cat.src = "cat_dance.gif";
-
   buttons.style.display = "none";
   finalText.style.display = "block";
-
   spawnSparkles();
-});
+};
 
-// =======================
-// Sparkles
-// =======================
+// sparkles
 function spawnSparkles() {
   for (let i = 0; i < 20; i++) {
     const s = document.createElement("div");
     s.className = "sparkle";
     s.textContent = "✨";
-
     s.style.left = Math.random() * 100 + "%";
     s.style.top = Math.random() * 100 + "%";
-
     document.body.appendChild(s);
     setTimeout(() => s.remove(), 1200);
   }
