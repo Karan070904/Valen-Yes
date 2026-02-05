@@ -1,3 +1,6 @@
+// =====================
+// Elements
+// =====================
 const envelope = document.getElementById("envelope-container");
 const letter = document.getElementById("letter-container");
 const letterWindow = document.querySelector(".letter-window");
@@ -40,14 +43,24 @@ envelope.onclick = () => {
 };
 
 // =====================
-// NO button smooth dodge (FOREVER)
-let dodgeX = 0;
-let dodgeY = 0;
-
+// NO button — IMPOSSIBLE MODE
+// =====================
 noBtn.addEventListener("mouseenter", () => {
-  dodgeX = Math.random() * 160 - 80;
-  dodgeY = Math.random() * 100 - 50;
-  noBtn.style.transform = `translate(${dodgeX}px, ${dodgeY}px)`;
+  const maxX = 320; // VERY FAR
+  const maxY = 200; // VERY FAR
+
+  const moveX = Math.random() * maxX - maxX / 2;
+  const moveY = Math.random() * maxY - maxY / 2;
+
+  noBtn.style.transition = "transform 0.12s ease-out"; // VERY FAST
+  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+});
+
+// Block ALL clicks on NO (even accidental)
+noBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
 });
 
 // =====================
