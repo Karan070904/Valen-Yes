@@ -5,63 +5,58 @@ const envelope = document.getElementById("envelope-container");
 const letter = document.getElementById("letter-container");
 const letterWindow = document.querySelector(".letter-window");
 
-const noBtn = document.querySelector(".no-btn");
-const yesBtn = document.querySelector(".btn[alt='Yes']");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
 
 const title = document.getElementById("letter-title");
-const catImg = document.getElementById("letter-cat");
+const cat = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
 // =======================
-// Typing Effect
+// Typing animation
 // =======================
 const message = "Will you be my Valentine?? (⸝⸝๑﹏๑⸝⸝)👉👈";
-let textIndex = 0;
+let i = 0;
 
 function typeText() {
-  if (textIndex < message.length) {
-    title.textContent += message.charAt(textIndex);
-    textIndex++;
+  if (i < message.length) {
+    title.textContent += message.charAt(i);
+    i++;
     setTimeout(typeText, 45);
   }
 }
 
 // =======================
-// Click Envelope
+// Open envelope
 // =======================
-envelope.addEventListener("click", () => {
+envelope.onclick = () => {
   envelope.style.display = "none";
   letter.style.display = "flex";
 
   setTimeout(() => {
     letterWindow.classList.add("open");
-    typeText(); // ⌨️ start typing after open
-  }, 80);
-});
+    title.textContent = "";
+    i = 0;
+    typeText();
+  }, 100);
+};
 
 // =======================
-// NO button dodge logic
+// NO button dodge
 // =======================
 noBtn.addEventListener("mouseenter", () => {
-  const distance = 180;
-  const angle = Math.random() * Math.PI * 2;
-
-  const moveX = Math.cos(angle) * distance;
-  const moveY = Math.sin(angle) * distance;
-
-  noBtn.style.transition = "transform 0.2s ease";
-  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 120 - 60;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
 });
 
 // =======================
-// YES button clicked
+// YES click (THIS NOW WORKS)
 // =======================
 yesBtn.addEventListener("click", () => {
-  title.textContent = "Yippeeee! 💖";
-  catImg.src = "cat_dance.gif";
-
-  letterWindow.classList.add("final");
+  title.textContent = "YIPPPPEEEE!! 💖";
+  cat.src = "cat_dance.gif";
 
   buttons.style.display = "none";
   finalText.style.display = "block";
@@ -70,19 +65,18 @@ yesBtn.addEventListener("click", () => {
 });
 
 // =======================
-// Sparkle Effect
+// Sparkles
 // =======================
 function spawnSparkles() {
-  for (let i = 0; i < 16; i++) {
-    const sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    sparkle.textContent = "✨";
+  for (let i = 0; i < 20; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.textContent = "✨";
 
-    sparkle.style.left = Math.random() * 100 + "%";
-    sparkle.style.top = Math.random() * 100 + "%";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
 
-    document.body.appendChild(sparkle);
-
-    setTimeout(() => sparkle.remove(), 1200);
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1200);
   }
 }
