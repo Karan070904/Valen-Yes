@@ -1,46 +1,49 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Valentine Letter ⸜(｡˃ ᵕ ˂)⸝♡</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine Letter ⸜(｡˃ ᵕ ˂)⸝♡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Pixelify+Sans:wght@400..700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- Envelope Screen -->
-    <div id="envelope-container">
-      <img src="envelope.png" alt="Envelope" id="envelope" />
-      <p>♡ Letter made for You open it!! ♡</p>
-    </div>
+  <link rel="stylesheet" href="style.css?v=3" />
 
-    <!-- Letter Screen -->
-    <div id="letter-container">
-      <div class="letter-window">
-        <h1 id="letter-title">Will you be my Valentine?? (⸝⸝๑﹏๑⸝⸝)👉👈</h1>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet" />
+</head>
 
-        <img src="cat_heart.gif" class="cat" id="letter-cat" />
+<body>
 
-        <div class="buttons" id="letter-buttons">
-          <img src="yes.png" class="btn yes-btn" alt="Yes" />
+<!-- Envelope Screen -->
+<div id="envelope-container">
+  <img src="envelope.png" id="envelope" />
+  <p>♡ Letter made for you — open it!! ♡</p>
+</div>
 
-          <div class="no-wrapper">
-            <img src="no.png" class="btn no-btn" alt="No" />
-          </div>
-        </div>
+<!-- Letter Screen -->
+<div id="letter-container">
+  <div class="letter-window">
 
-        <p id="final-text" class="final-text" style="display: none">
-          <strong>Would have ended you if you had say no ♡(˃͈ ˂͈ ) :</strong> 
-        </p>
+    <!-- ACTUAL LETTER AREA -->
+    <div class="letter-content">
+
+      <h1 id="letter-title"></h1>
+
+      <img src="cat_heart.gif" class="cat" id="letter-cat" />
+
+      <div class="buttons" id="letter-buttons">
+        <img src="yes.png" class="btn yes-btn" id="yesBtn" />
+        <img src="no.png" class="btn no-btn" id="noBtn" />
       </div>
+
+      <p id="final-text" class="final-text">
+        Yippppeeee!! 💖🐈
+      </p>
+
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
 </html>
