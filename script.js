@@ -10,19 +10,23 @@ const cat = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
-// typing
+// =====================
+// Typing effect
+// =====================
 const message = "Will you be my Valentine?? (⸝⸝๑﹏๑⸝⸝)👉👈";
-let i = 0;
+let index = 0;
 
 function typeText() {
-  if (i < message.length) {
-    title.textContent += message.charAt(i);
-    i++;
+  if (index < message.length) {
+    title.textContent += message.charAt(index);
+    index++;
     setTimeout(typeText, 45);
   }
 }
 
-// open envelope
+// =====================
+// Open envelope
+// =====================
 envelope.onclick = () => {
   envelope.style.display = "none";
   letter.style.display = "flex";
@@ -30,36 +34,48 @@ envelope.onclick = () => {
   setTimeout(() => {
     letterWindow.classList.add("open");
     title.textContent = "";
-    i = 0;
+    index = 0;
     typeText();
   }, 100);
 };
 
-// NO dodge
+// =====================
+// NO button smooth dodge (FOREVER)
+let dodgeX = 0;
+let dodgeY = 0;
+
 noBtn.addEventListener("mouseenter", () => {
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 120 - 60;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  dodgeX = Math.random() * 160 - 80;
+  dodgeY = Math.random() * 100 - 50;
+  noBtn.style.transform = `translate(${dodgeX}px, ${dodgeY}px)`;
 });
 
-// YES click (NOW GUARANTEED)
+// =====================
+// YES clicked
+// =====================
 yesBtn.onclick = () => {
-  title.textContent = "YIPPPPEEEE!! 💖";
-  cat.src = "cat_dance.gif";
+  title.style.display = "none";
   buttons.style.display = "none";
+
+  cat.src = "cat_dance.gif";
   finalText.style.display = "block";
-  spawnSparkles();
+
+  startHearts();
 };
 
-// sparkles
-function spawnSparkles() {
-  for (let i = 0; i < 20; i++) {
-    const s = document.createElement("div");
-    s.className = "sparkle";
-    s.textContent = "✨";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.top = Math.random() * 100 + "%";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 1200);
-  }
+// =====================
+// Floating hearts
+// =====================
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "💖";
+
+    heart.style.left = Math.random() * 100 + "%";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2500);
+  }, 300);
 }

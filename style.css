@@ -13,15 +13,21 @@ body {
   font-family: "Pixelify Sans", sans-serif;
 }
 
-/* Envelope */
+/* =====================
+   ENVELOPE SCREEN
+===================== */
 #envelope-container {
   text-align: center;
   cursor: pointer;
 }
 
 #envelope {
-  width: 200px;
+  width: 260px; /* BIGGER */
   animation: pulse 1.5s infinite;
+}
+
+.open-text {
+  font-size: 26px; /* BIGGER */
 }
 
 @keyframes pulse {
@@ -30,7 +36,9 @@ body {
   100% { transform: scale(1); }
 }
 
-/* Letter screen */
+/* =====================
+   LETTER SCREEN
+===================== */
 #letter-container {
   display: none;
   position: fixed;
@@ -39,7 +47,7 @@ body {
   align-items: center;
 }
 
-/* Window frame (NO POINTER EVENTS) */
+/* Window frame */
 .letter-window {
   width: 90vw;
   max-width: 800px;
@@ -54,11 +62,11 @@ body {
   justify-content: center;
   align-items: center;
 
-  transform: scale(1.2);
+  transform: scale(1.15);
   opacity: 0;
   transition: 0.6s ease;
 
-  pointer-events: none; /* 🔥 IMPORTANT */
+  pointer-events: none;
 }
 
 .letter-window.open {
@@ -66,7 +74,7 @@ body {
   opacity: 1;
 }
 
-/* Actual clickable content */
+/* Letter writing area */
 .letter-content {
   width: 75%;
   height: 55%;
@@ -78,13 +86,14 @@ body {
   justify-content: center;
   text-align: center;
 
-  pointer-events: auto; /* 🔥 re-enable */
+  pointer-events: auto;
 }
 
-/* Text */
-#letter-title {
+/* Question text INSIDE box */
+.letter-text {
   font-size: 28px;
-  min-height: 70px;
+  min-height: 60px;
+  margin-bottom: 10px;
 }
 
 /* Cat */
@@ -104,35 +113,44 @@ body {
 .btn {
   width: 120px;
   cursor: pointer;
-  pointer-events: auto;
 }
 
 .yes-btn {
-  z-index: 50;
+  z-index: 20;
 }
 
 .no-btn {
-  z-index: 40;
+  z-index: 10;
+  transition: transform 0.35s ease;
 }
 
 /* Final text */
 .final-text {
   display: none;
-  font-size: 26px;
+  font-size: 24px;
   padding: 12px 20px;
   background: rgba(255,240,240,0.6);
   border-radius: 12px;
 }
 
-/* Sparkles */
-.sparkle {
+/* =====================
+   HEART FLOATING
+===================== */
+.heart {
   position: fixed;
+  bottom: -20px;
   font-size: 22px;
   pointer-events: none;
-  animation: sparkle 1.2s ease-out forwards;
+  animation: floatUp 2.5s ease-out forwards;
 }
 
-@keyframes sparkle {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: translateY(-40px) scale(1.5); }
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.5);
+  }
 }
