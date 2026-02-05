@@ -1,6 +1,10 @@
+// =======================
 // Elements
+// =======================
 const envelope = document.getElementById("envelope-container");
 const letter = document.getElementById("letter-container");
+const letterWindow = document.querySelector(".letter-window");
+
 const noBtn = document.querySelector(".no-btn");
 const yesBtn = document.querySelector(".btn[alt='Yes']");
 
@@ -9,64 +13,76 @@ const catImg = document.getElementById("letter-cat");
 const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
+// =======================
+// Typing Effect
+// =======================
+const message = "Will you be my Valentine?? (⸝⸝๑﹏๑⸝⸝)👉👈";
+let textIndex = 0;
+
+function typeText() {
+  if (textIndex < message.length) {
+    title.textContent += message.charAt(textIndex);
+    textIndex++;
+    setTimeout(typeText, 45);
+  }
+}
+
+// =======================
 // Click Envelope
-
+// =======================
 envelope.addEventListener("click", () => {
-    envelope.style.display = "none";
-    letter.style.display = "flex";
+  envelope.style.display = "none";
+  letter.style.display = "flex";
 
-    setTimeout( () => {
-        document.querySelector(".letter-window").classList.add("open");
-    },50);
+  setTimeout(() => {
+    letterWindow.classList.add("open");
+    typeText(); // ⌨️ start typing after open
+  }, 80);
 });
 
-// Logic to move the NO btn
+// =======================
+// NO button dodge logic
+// =======================
+noBtn.addEventListener("mouseenter", () => {
+  const distance = 180;
+  const angle = Math.random() * Math.PI * 2;
 
-noBtn.addEventListener("mouseover", () => {
-    const min = 200;
-    const max = 200;
+  const moveX = Math.cos(angle) * distance;
+  const moveY = Math.sin(angle) * distance;
 
-    const distance = Math.random() * (max - min) + min;
-    const angle = Math.random() * Math.PI * 2;
-
-    const moveX = Math.cos(angle) * distance;
-    const moveY = Math.sin(angle) * distance;
-
-    noBtn.style.transition = "transform 0.3s ease";
-    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  noBtn.style.transition = "transform 0.2s ease";
+  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
 });
 
-// Logic to make YES btn to grow
-
-// let yesScale = 1;
-
-// yesBtn.style.position = "relative"
-// yesBtn.style.transformOrigin = "center center";
-// yesBtn.style.transition = "transform 0.3s ease";
-
-// noBtn.addEventListener("click", () => {
-//     yesScale += 2;
-
-//     if (yesBtn.style.position !== "fixed") {
-//         yesBtn.style.position = "fixed";
-//         yesBtn.style.top = "50%";
-//         yesBtn.style.left = "50%";
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }else{
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }
-// });
-
-// YES is clicked
-
+// =======================
+// YES button clicked
+// =======================
 yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeee!";
+  title.textContent = "Yippeeee! 💖";
+  catImg.src = "cat_dance.gif";
 
-    catImg.src = "cat_dance.gif";
+  letterWindow.classList.add("final");
 
-    document.querySelector(".letter-window").classList.add("final");
+  buttons.style.display = "none";
+  finalText.style.display = "block";
 
-    buttons.style.display = "none";
-
-    finalText.style.display = "block";
+  spawnSparkles();
 });
+
+// =======================
+// Sparkle Effect
+// =======================
+function spawnSparkles() {
+  for (let i = 0; i < 16; i++) {
+    const sparkle = document.createElement("div");
+    sparkle.className = "sparkle";
+    sparkle.textContent = "✨";
+
+    sparkle.style.left = Math.random() * 100 + "%";
+    sparkle.style.top = Math.random() * 100 + "%";
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => sparkle.remove(), 1200);
+  }
+}
