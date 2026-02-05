@@ -14,6 +14,11 @@ const buttons = document.getElementById("letter-buttons");
 const finalText = document.getElementById("final-text");
 
 // =====================
+// Device detection
+// =====================
+const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+// =====================
 // Typing effect
 // =====================
 const message = "Will you be my Valentine?? (⸝⸝๑﹏๑⸝⸝)👉👈";
@@ -43,32 +48,58 @@ envelope.onclick = () => {
 };
 
 // =====================
-// NO button — FINAL BOSS MODE
+// NO button — FINAL BOSS (DESKTOP + MOBILE)
 // =====================
 
-// make it literally unclickable
+// make NO physically unclickable
 noBtn.style.pointerEvents = "none";
 
-document.addEventListener("mousemove", (e) => {
-  const rect = noBtn.getBoundingClientRect();
+function moveNoButtonFar() {
+  const moveX = (Math.random() - 0.5) * 700;
+  const moveY = (Math.random() - 0.5) * 450;
 
-  const btnCenterX = rect.left + rect.width / 2;
-  const btnCenterY = rect.top + rect.height / 2;
+  noBtn.style.transition = "transform 0.06s linear"; // VERY FAST
+  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+}
 
-  const dx = e.clientX - btnCenterX;
-  const dy = e.clientY - btnCenterY;
+// DESKTOP: cursor proximity (frame-perfect)
+if (!isMobile) {
+  document.addEventListener("mousemove", (e) => {
+    const rect = noBtn.getBoundingClientRect();
 
-  const distance = Math.sqrt(dx * dx + dy * dy);
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
 
-  // if cursor gets ANYWHERE close
-  if (distance < 160) {
-    const moveX = (Math.random() - 0.5) * 600; // HUGE jump
-    const moveY = (Math.random() - 0.5) * 400;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
-    noBtn.style.transition = "transform 0.08s linear"; // INSTANT
-    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  }
-});
+    if (distance < 180) {
+      moveNoButtonFar();
+    }
+  });
+}
+
+// MOBILE: touch proximity
+if (isMobile) {
+  document.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    const rect = noBtn.getBoundingClientRect();
+
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const dx = touch.clientX - cx;
+    const dy = touch.clientY - cy;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 140) {
+      moveNoButtonFar();
+    }
+  });
+}
 
 // =====================
 // YES clicked
@@ -95,7 +126,6 @@ function startHearts() {
     heart.style.left = Math.random() * 100 + "%";
 
     document.body.appendChild(heart);
-
     setTimeout(() => heart.remove(), 2500);
-  }, 250);
+  }, 280);
 }
