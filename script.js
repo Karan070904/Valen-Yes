@@ -43,24 +43,31 @@ envelope.onclick = () => {
 };
 
 // =====================
-// NO button — IMPOSSIBLE MODE
+// NO button — FINAL BOSS MODE
 // =====================
-noBtn.addEventListener("mouseenter", () => {
-  const maxX = 320; // VERY FAR
-  const maxY = 200; // VERY FAR
 
-  const moveX = Math.random() * maxX - maxX / 2;
-  const moveY = Math.random() * maxY - maxY / 2;
+// make it literally unclickable
+noBtn.style.pointerEvents = "none";
 
-  noBtn.style.transition = "transform 0.12s ease-out"; // VERY FAST
-  noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-});
+document.addEventListener("mousemove", (e) => {
+  const rect = noBtn.getBoundingClientRect();
 
-// Block ALL clicks on NO (even accidental)
-noBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  return false;
+  const btnCenterX = rect.left + rect.width / 2;
+  const btnCenterY = rect.top + rect.height / 2;
+
+  const dx = e.clientX - btnCenterX;
+  const dy = e.clientY - btnCenterY;
+
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  // if cursor gets ANYWHERE close
+  if (distance < 160) {
+    const moveX = (Math.random() - 0.5) * 600; // HUGE jump
+    const moveY = (Math.random() - 0.5) * 400;
+
+    noBtn.style.transition = "transform 0.08s linear"; // INSTANT
+    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+  }
 });
 
 // =====================
@@ -90,5 +97,5 @@ function startHearts() {
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 2500);
-  }, 300);
+  }, 250);
 }
